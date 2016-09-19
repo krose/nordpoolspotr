@@ -1,0 +1,49 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+## Introduction
+
+Not much.. Just a single function package that wraps the NordPool Spot API. 
+
+The package is just a pet project and in early beta. Changes can happen, but I'm
+also very open for suggestions.
+
+Check out how it works...
+
+## Installation
+
+Install the package using Hadley's devtools package.
+
+```
+
+devtools::install_github("krose/nordpoolspotr")
+
+```
+
+## Examples
+
+Here are a few examples of how to use the function.
+
+```{r, examples}
+
+# Load the package.
+library(nordpoolspotr)
+
+# Get the prices for tommorow.
+np_prices("hourly", "EUR")
+
+# Get the prices for today
+np_prices("hourly", "EUR", Sys.Date())
+
+# Get a long data frame
+np_prices("hourly", "EUR", long_data = TRUE)
+
+# Get only the Danish prices in DKK
+np_prices(time_unit = "hourly", currency = "DKK", areas = c("DK1", "DK2"))
+
+
+```
+
