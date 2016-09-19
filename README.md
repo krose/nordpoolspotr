@@ -3,7 +3,7 @@ Introduction
 
 Not much.. Just a single function package that wraps the NordPool Spot API.
 
-The package is just a pet project and in early beta. Changes can happen, but I'm also very open for suggestions.
+The package is just a pet project and in early beta. Changes can happen, but I'm also very open for suggestions. The project was inspired by the [Python](https://github.com/kipe/nordpool) library.
 
 Check out how it works...
 
@@ -18,7 +18,7 @@ Install the package using Hadley's devtools package.
 Examples
 --------
 
-Here are a few examples of how to use the function.
+Here are a few examples of how to use the function. All date values are returned with the timezone UTC.
 
 ``` r
 # Load the package.

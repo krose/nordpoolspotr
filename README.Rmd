@@ -8,8 +8,7 @@ output:
 
 Not much.. Just a single function package that wraps the NordPool Spot API. 
 
-The package is just a pet project and in early beta. Changes can happen, but I'm
-also very open for suggestions.
+The package is just a pet project and in early beta. Changes can happen, but I'm also very open for suggestions. The project was inspired by the [Python](https://github.com/kipe/nordpool) library.
 
 Check out how it works...
 
@@ -25,7 +24,7 @@ devtools::install_github("krose/nordpoolspotr")
 
 ## Examples
 
-Here are a few examples of how to use the function.
+Here are a few examples of how to use the function. All date values are returned with the timezone UTC.
 
 ```{r, examples}
 
