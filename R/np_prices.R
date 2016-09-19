@@ -66,7 +66,10 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
 
   ## Get the content
   # The list is rather nasty and we need date, area and spot prices
-  # from two places in the list.
+  # from two places in the list. We'll create a data.frame with
+  # the dates and then nest a list with the area name and spot
+  # prices. The procedure is a two part proces. In the end the
+  # nested lists will be unnested using tidyr.
 
   # subset until rows and get the start and end time.
   # The IsExtraRow variable is TRUE for summary data,
