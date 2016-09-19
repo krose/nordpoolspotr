@@ -13,14 +13,21 @@ np_prices(time_unit = c("hourly", "daily", "weekly", "monthly", "yearly"),
 
 \item{currency}{Price currency. EUR, NOK, DKK or SEK.}
 
-\item{price_date}{Date class object.}
+\item{price_date}{Date class object. The default is for tomorrow.}
 
-\item{areas}{Vector with listed areas.}
+\item{areas}{A character vector with the areas you are interested in. Defaults to all.}
 
 \item{long_data}{Boolean. Do you want the data returned as a long or wide data.frame?}
 }
 \description{
-Get the spot prices for a specified price_date.
+The function will return hourly, daily, weekly,
+monthly or yearly spot prices. The hourly prices
+are the prices the Nordic end users pay and the price
+which the producers get. The daily,
+weekly, monthly and yearly prices are base (mean over a period)
+and not necessarily equal to the price the end user pays
+or the price the producer gets, as the consumption and
+production is not flat. Learn more at the website.
 }
 \examples{
   # Get the prices for tommorow.
@@ -34,5 +41,8 @@ Get the spot prices for a specified price_date.
 
   # Get only the Danish prices in DKK
   np_prices(time_unit = "hourly", currency = "DKK", areas = c("DK1", "DK2"))
+}
+\references{
+\url{http://nordpoolspot.com/How-does-it-work/}
 }
 
