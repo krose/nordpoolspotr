@@ -55,7 +55,7 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
   } else {stop("time_unit can only be one of the following: hourly, daily, weekly, monthly, yearly")}
 
   if(currency[1] != "EUR" & currency[1] != "DKK" & currency[1] != "NOK" & currency[1] != "SEK"){
-    stop("time_unit can only be one of the following: hourly, daily, weekly, monthly, yearly")
+    stop("currency can only be one of the following: EUR, DKK, NOK or SEK")
   }
 
   ## Get the data.
