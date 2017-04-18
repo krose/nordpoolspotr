@@ -91,11 +91,13 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
                     purrr::map("Columns") %>%
                     purrr::map(function(x){x %>%
                         purrr::map_df(`[`, c("Name", "Value", "IsAdditionalData")) %>%
-                        dplyr::mutate(Value = as.numeric(stringr::str_replace(Value, ",", ".")))})) %>%
+                        # I supress warnings as there are empty (NA) rows (indicated by IsExtraRow) that gives warnings when
+                        # they are parsed. I remove these rows below.
+                        dplyr::mutate(Value = suppressWarnings(as.numeric(stringr::str_replace(Value, ",", "."))))})) %>%
     # Unnest the data.frame with the nested list. This creates a long data.frame.
     tidyr::unnest() %>%
-    dplyr::mutate(StartTime = lubridate::ymd_hms(StartTime, tz = "UTC"),
-                  EndTime = lubridate::ymd_hms(EndTime, tz = "UTC")) %>%
+    dplyr::mutate(StartTime = lubridate::ymd_hms(StartTime, tz = "CET"),
+                  EndTime = lubridate::ymd_hms(EndTime, tz = "CET")) %>%
     # Remove the unwanted summary data.
     dplyr::filter(!IsExtraRow) %>%
     dplyr::select(-IsExtraRow, -IsAdditionalData) %>%
@@ -104,9 +106,8 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
 
   # subset areas
   if(!is.null(areas)){
-    np_data <-
-      np_data %>%
-      dplyr::filter(Areas %in% areas)
+    np_data <- np_data[np_data$Areas %in% areas, ]
+    rm("areas")
   }
 
   # Make data wide

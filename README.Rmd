@@ -8,9 +8,24 @@ output:
 
 Not much.. Just a single function package that wraps the NordPool Spot API. 
 
-The package is just a pet project and in early beta. Changes can happen, but I'm also very open for suggestions. The project was inspired by the [Python](https://github.com/kipe/nordpool) library.
+The package is just a pet project and in early beta. Changes can happen and I'm also very open for suggestions. The project was inspired by the [Python](https://github.com/kipe/nordpool) library.
 
-Check out how it works...
+Check out how it works below...
+
+### Known Issues
+
+* The function doesn't work when DST start or end.
+
+```
+# This won't work
+
+# DST ends
+np_prices("hourly", "EUR", as.Date("2016-10-30"))
+
+# DST starts
+np_prices("hourly", "EUR", as.Date("2017-03-26"))
+
+```
 
 ## Installation
 
@@ -24,14 +39,14 @@ devtools::install_github("krose/nordpoolspotr")
 
 ## Examples
 
-Here are a few examples of how to use the function. All date values are returned with the timezone UTC.
+Here are a few examples of how to use the function. All date values are returned with the timezone CET (as they are from the API).
 
 ```{r, examples}
 
 # Load the package.
 library(nordpoolspotr)
 
-# Get the prices for tommorow.
+# Get the prices for tommorow (if they are published).
 np_prices("hourly", "EUR")
 
 # Get the prices for today
@@ -42,7 +57,6 @@ np_prices("hourly", "EUR", long_data = TRUE)
 
 # Get only the Danish prices in DKK
 np_prices(time_unit = "hourly", currency = "DKK", areas = c("DK1", "DK2"))
-
 
 ```
 

@@ -1,7 +1,7 @@
 Package: nordpoolspotr
 Type: Package
 Title: An R Wrapper for the NordPool Spot API.
-Version: 0.1.0
+Version: 0.1.1
 Author: Kenneth Rose
 Maintainer: Kenneth Rose <kennethrose82@gmail.com>
 Description: This package wraps the API from NordPool Spot into a simple
@@ -16,4 +16,6 @@ Imports:
     purrr,
     lubridate,
     jsonlite
+Suggests: tidyverse,
+    testthat
 RoxygenNote: 5.0.1
