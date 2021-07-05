@@ -60,9 +60,9 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
 
   ## Get the data.
   np <-
-    httr::GET(paste0("http://www.nordpoolspot.com/api/marketdata/page/", page,
-                     "?currency=", currency,
-                     "&endDate=", paste(lubridate::day(price_date), lubridate::month(price_date), lubridate::year(price_date), sep = "-")))
+    httr::GET(paste0("http://www.nordpoolgroup.com/api/marketdata/page/", page,
+                     "?currency=,", currency, currency, currency,
+                     "&endDate=", strftime(price_date, "%d-%m-%Y")))
 
   ## Get the content
   # The list is rather nasty and we need date, area and spot prices
@@ -95,7 +95,7 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
                         # they are parsed. I remove these rows below.
                         dplyr::mutate(Value = suppressWarnings(as.numeric(stringr::str_replace(Value, ",", "."))))})) %>%
     # Unnest the data.frame with the nested list. This creates a long data.frame.
-    tidyr::unnest() %>%
+    tidyr::unnest(price_lists) %>%
     dplyr::mutate(StartTime = lubridate::ymd_hms(StartTime, tz = "CET"),
                   EndTime = lubridate::ymd_hms(EndTime, tz = "CET")) %>%
     # Remove the unwanted summary data.
@@ -110,11 +110,19 @@ np_prices <- function(time_unit = c("hourly", "daily", "weekly", "monthly", "yea
     rm("areas")
   }
 
+  np_data <-
+    np_data %>%
+    dplyr::filter(!is.na(Value))
+
   # Make data wide
   if(!long_data){
     np_data <-
       np_data %>%
-      tidyr::spread(Areas, Value)
+      tidyr::pivot_wider(names_from = Areas, values_from = Value)
+  }
+
+  if(!price_date %in% lubridate::as_date(np_data$StartTime)){
+    stop(paste("The price_date is not the same as the date in the data returned from the API:", unique(lubridate::as_date(np_data$StartTime))))
   }
 
   np_data
