@@ -4,9 +4,13 @@
 \alias{np_prices}
 \title{Get the spot prices for a specified price_date.}
 \usage{
-np_prices(time_unit = c("hourly", "daily", "weekly", "monthly", "yearly"),
-  currency = c("EUR", "NOK", "DKK", "SEK"), price_date = Sys.Date() +
-  lubridate::days(1), areas = NULL, long_data = FALSE)
+np_prices(
+  time_unit = c("hourly", "daily", "weekly", "monthly", "yearly"),
+  currency = c("EUR", "NOK", "DKK", "SEK"),
+  price_date = Sys.Date() + lubridate::days(1),
+  areas = NULL,
+  long_data = FALSE
+)
 }
 \arguments{
 \item{time_unit}{The time unit to return the data in.}
@@ -45,4 +49,3 @@ production is not flat. Learn more at the website.
 \references{
 \url{http://nordpoolspot.com/How-does-it-work/}
 }
-

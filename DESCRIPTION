@@ -18,4 +18,4 @@ Imports:
     jsonlite
 Suggests: tidyverse,
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.2
